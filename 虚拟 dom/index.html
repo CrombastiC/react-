@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!-- <script src="./react.js"></script> -->
+  <script>
+    const channel = new MessageChannel();
+    channel.port1.onmessage = (event) => {
+      console.log('port1', event.data);
+    }
+    channel.port2.postMessage('hello');
+    let a=3
+  </script>
+  <script src="./requestIdleCallBack.js"></script>
+</body>
+
+</html>
