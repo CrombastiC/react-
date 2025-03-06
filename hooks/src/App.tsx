@@ -1,24 +1,31 @@
-import { useLayoutEffect } from "react"
+import React from "react";
+import { useRef } from "react";
 
-function App() {
-  const scrollHandler = (e:React.UIEvent<HTMLDivElement>) => {
-    console.log('scroll')
-    const scrollTop =e.currentTarget.scrollTop
-    window.history.replaceState({}, '', `?top=${scrollTop}`)
-  }
-  useLayoutEffect(()=>{
-    const containter = document.getElementById('containter') as HTMLDivElement
-    const top = window.location.search.split('=')[1]
-    containter.scrollTop = Number(top)||0
-  },[])
+//子组件
+const Child = React.forwardRef<HTMLHeadingElement>((props, ref) => {
   return (
-    <div onScroll={scrollHandler} id="containter" style={{height:'500px',overflow:'auto'}}>
-      {
-        Array.from({ length: 500 }).map((_, index) => {
-          return <div key={index}>{index + 1}</div>
-        })
-      }
+    <div>
+      <p ref={ref}>子组件</p>
+    </div>
+  );
+});
+//父组件
+function App() {
+  //react18版本左右 useRef不是必传的
+  //react 19版本左右 useRef是必传的
+
+  const childRef = useRef<HTMLHeadingElement>(null);
+  const getChild = () => {
+    console.log(childRef.current);
+  }
+  return (
+    <div>
+      <h1 >父组件</h1>
+      <button onClick={getChild}>获取子组件dom</button>
+      <hr />
+      <Child ref={childRef}/>
     </div>
   )
 }
-export default App
+
+export default App;
