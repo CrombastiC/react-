@@ -1,10 +1,10 @@
 import React, { useImperativeHandle, useState } from "react";
 import { useRef } from "react";
-interface childRef{
-  name:string,
-  age:number,
-  addCount:()=>void,
-  subCount:()=>void
+interface childRef {
+  name: string,
+  age: number,
+  addCount: () => void,
+  subCount: () => void
 }
 //forwardRef 在19版本废除了，并且props和ref进行了合并
 // const child=({ref}:{ref:React.Ref<childRef>})=>{}
@@ -36,27 +36,30 @@ const Child = React.forwardRef<childRef>((props, ref) => {
     </div>
   );
 });
-interface formRef{
-  name:string,
-  validate:()=>void
-  reset:()=>void
+interface formRef {
+  name: string,
+  validate: () => void
+  reset: () => void
 }
 const Form = React.forwardRef<formRef>((props, ref) => {
-  const [form,setForm]=useState({username:'',password:'',email:''});
-  const validate=()=>{
-    console.log('校验');
+  const [form, setForm] = useState({ username: '', password: '', email: '' });
+  const validate = () => {
+    if (form.username === '' || form.password === '' || form.email === '') {
+      return '请填写完整';
+    }
+    return true;
   }
-  const reset=()=>{
-   setForm({username:'',password:'',email:''});
+  const reset = () => {
+    setForm({ username: '', password: '', email: '' });
   }
-  useImperativeHandle(ref,()=>{
-    return{
-      name:'表单',
+  useImperativeHandle(ref, () => {
+    return {
+      name: '表单',
       validate,
       reset
     };
   });
-  
+
   return (
     <div>
       <form >
@@ -81,12 +84,12 @@ function App() {
     <div>
       <h1 >父组件</h1>
       <button onClick={getChild}>获取子组件dom</button>
-      <button onClick={()=>childRef.current?.addCount()}>操作子组件信息+1</button>
-      <button onClick={()=>childRef.current?.subCount()}>操作子组件信息-1</button>
+      <button onClick={() => childRef.current?.addCount()}>操作子组件信息+1</button>
+      <button onClick={() => childRef.current?.subCount()}>操作子组件信息-1</button>
       <hr />
-      <Child ref={childRef}/>
+      <Child ref={childRef} />
       <hr />
-      <button onClick={() => formRef.current?.validate()}>校验</button>
+      <button onClick={() => console.log(formRef.current?.validate())}>校验</button>
       <button onClick={() => formRef.current?.reset}>重置</button>
       <Form ref={formRef} /> {/* Update ref for Form */}
     </div>
