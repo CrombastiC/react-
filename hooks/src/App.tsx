@@ -4,6 +4,8 @@
 //   console.log(param)
 // }
 import { Modal } from "./components/Modal";
+
+import styled from './app.module.less'
 function App() {
   return (
     <>
@@ -31,7 +33,11 @@ function App() {
       <div style={{width: '800px', height: '800px',position:'relative',border: '1px solid black'}}>
         <Modal />
       </div>
-     
+     <div className={styled.app}>app
+      <button className={styled.buttonBlue}></button>
+      <button className={styled['button-blue']}></button>
+      <button className={'button-red'}></button>
+     </div>
     </>
   )
 }

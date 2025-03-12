@@ -25,5 +25,16 @@ const viteMockServer = (): Plugin => {
 }
 // https://vite.dev/config/
 export default defineConfig({
+  css:{
+    modules:{
+      //开启css模块化
+      localsConvention:'dashes',//带-的转换为驼峰，保留之前的类名
+      // localsConvention:'dashesOnly',//带-的转换为驼峰，移除之前的类名
+      // localsConvention:'camelCaseOnly',//非驼峰转驼峰，移除之前的类名
+      // localsConvention:'camelCase',//非驼峰转驼峰，保留之前的类名
+
+      generateScopedName:'[name]__[local]___[hash:base64:5]'//自定义类名 name 文件名 local 类名 hash:base64:5 5位hash值
+    }
+  },
   plugins: [react(), viteMockServer()],
 })
