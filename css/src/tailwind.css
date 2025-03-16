@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.text {
+
+  @apply text-white font-bold hover:animate-spin
+}
+.box {
+  @apply w-screen h-screen flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500
+}
