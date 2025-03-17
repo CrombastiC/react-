@@ -1,43 +1,21 @@
-// import Card from "./components/Card";
-// import Card2 from "./components/Card2";
-// const fn=(param:string)=>{
-//   console.log(param)
-// }
-import { Modal } from "./components/Modal";
+import React from "react";
 
-import styled from './app.module.less'
-function App() {
-  return (
+//1.第一个参数静态字符串，是一个数组
+//2.第二个参数是对应里面的变量${}
+const div=function(strArr:TemplateStringsArray, ...args:any[]){
+  return strArr.reduce((result,str,i)=>{
+    return result+str+(args[i]||'')
+  },'')
+}
+const a=div`
+  color:red;
+  height:${100}px;
+  width:${100}px;
+`
+console.log(a)
+const App:React.FC=()=>{
+  return(
     <>
-      {/* <Card title="兄弟a" callBack={fn}>
-        <div>
-          <p>这是主体内容</p>
-        </div>
-      </Card>
-      <Card2 title="兄弟b"></Card2>
-      <Card title={"Another Title Here"}
-        number={1}  
-        el={<div>这是一个div</div>}
-        isShow={true}
-        empty={null}
-        object={{name:"张三",age:18}}
-        arr={[1,2,3]}
-        func={()=>{console.log("这是一个函数")}}
-      />
-      <button onClick={()=>{window.onShow()}}>调用message</button>*/}
-
-      {/* {createPortal(
-        <div>这是一个弹窗</div>,
-        document.body
-      )} */}
-      <div style={{width: '800px', height: '800px',position:'relative',border: '1px solid black'}}>
-        <Modal />
-      </div>
-     <div className={styled.app}>app
-      <button className={styled.buttonBlue}></button>
-      <button className={styled['button-blue']}></button>
-      <button className={'button-red'}></button>
-     </div>
     </>
   )
 }
