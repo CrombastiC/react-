@@ -12,9 +12,9 @@ export default function Home() {
       {/* 使用searchParams */}
       {/* <NavLink to="/about?id=123">Go to About</NavLink> */}
       {/*使用params */}
-      {/* <NavLink to="/about/beijing/20">Go to About</NavLink> */}
-      {/* 使用state ,缺点只存在于当前会话*/}
-      <NavLink to="/about" state={{ id: 123 }}>Go to About</NavLink>
+      <NavLink to="/about/beijing/20">Go to About</NavLink>
+      {/* 使用state ,缺点只存在于当前会话,刷新后会丢失*/}
+      {/* <NavLink to="/about" state={{ id: 123 }}>Go to About</NavLink> */}
     </div>
   );
 }
