@@ -11,5 +11,9 @@ export default function Content() {
       }
       
     </div>
+    // 三个状态
+    // idle 空闲
+    // loading 加载中 触发loader
+    // submitting 提交中 触发action
 
 }
