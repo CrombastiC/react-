@@ -1,5 +1,5 @@
 // import {createMemoryRouter,createHashRouter, createBrowserRouter } from "react-router";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import Home from "../Pages/Home";
 import Layout from "../layout";
 //createHashRouter 不需要配置404 有#
@@ -26,7 +26,12 @@ const router = createBrowserRouter([
         Component: Home,
         loader: async () => {
           await sleep(2000);
+           //redirect 重定向 一般做权限控制
+           if(Math.random() > 0.5){
+            return redirect("/about");
+          }
           return { data, success: true };
+         
         },
         action:async({request})=>{
           const formData=await request.json();
