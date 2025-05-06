@@ -2,6 +2,9 @@
 import { createBrowserRouter, redirect } from "react-router";
 import Home from "../Pages/Home";
 import Layout from "../layout";
+import notFound from "../layout/404";
+
+import Error from "../layout/error";
 //createHashRouter 不需要配置404 有#
 //createBrowserRouter 需要配置404
 //createMemoryRouter 路由存在内存里,一般用在非浏览器场合
@@ -26,19 +29,19 @@ const router = createBrowserRouter([
         Component: Home,
         loader: async () => {
           await sleep(2000);
-           //redirect 重定向 一般做权限控制
-           if(Math.random() > 0.5){
+          //redirect 重定向 一般做权限控制
+          if (Math.random() > 0.5) {
             return redirect("/about");
           }
           return { data, success: true };
-         
+
         },
-        action:async({request})=>{
-          const formData=await request.json();
+        action: async ({ request }) => {
+          const formData = await request.json();
           console.log(formData);
           await sleep(2000);
           data.push(formData);
-          return {success:true,message:'添加成功'};
+          return { success: true, message: '添加成功' };
         }
       },
       {
@@ -49,8 +52,20 @@ const router = createBrowserRouter([
           return {
             Component: about.default
           }
-        }
+        },
+        loader: async () => {
+          throw {
+            message: '数据请求失败',
+            status: 500
+          }
+          
+        },
+        ErrorBoundary: Error,
       },
+      {
+        path: '*',
+        Component: notFound
+      }
     ],
   },
 ]);
